@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (matchingRow) {
             const heading = document.createElement("h2");
-            heading.textContent = `LINE ${line.includes("1") ? "1" : "2"}, CELL ${number}`;
+            heading.textContent = `LINE ${line.includes("1") ? "1" : "2"}`;
             tableContainer.appendChild(heading);
 
             // Display each field as a label-value pair
