@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const number = parseInt(urlParams.get("number"), 10); // Parse the number parameter
 
     // Show the loader before fetching data
-    loader.style.display = "block"; 
+    loader.style.display = "block";
 
     // Fetch the Excel file and display its data
     fetch(excelURL)
@@ -44,86 +44,89 @@ document.addEventListener("DOMContentLoaded", () => {
             loader.style.display = "none"; // Hide the loader in case of an error
         });
 
-   function displayRowByNumber(data, number) {
-    if (!data || data.length === 0) {
-        tableContainer.innerHTML = "<p>No data found in the Excel file.</p>";
-        loader.style.display = "none"; // Ensure loader is hidden
-        return;
+    // Function to display a specific row by number
+    function displayRowByNumber(data, number) {
+        if (!data || data.length === 0) {
+            tableContainer.innerHTML = "<p>No data found in the Excel file.</p>";
+            loader.style.display = "none"; // Ensure loader is hidden
+            return;
+        }
+
+        const headers = data[0]; // First row as headers
+        const rows = data.slice(1); // All rows excluding the headers
+
+        // Locate the row with the specified number in the first column
+        const matchingRow = rows.find(row => parseInt(row[0], 10) === number);
+
+        if (matchingRow) {
+            const heading = document.createElement("h2");
+            heading.textContent = `LINE ${line.includes("1") ? "1" : "2"}`; // Display only LINE x (1 or 2)
+            tableContainer.appendChild(heading);
+
+            // Display each field as a label-value pair
+            headers.forEach((header, index) => {
+                const fieldContainer = document.createElement("div");
+                fieldContainer.classList.add("field-container");
+
+                const label = document.createElement("span");
+                label.classList.add("field-label");
+                label.textContent = `${header}:`;
+
+                const value = document.createElement("span");
+                value.classList.add("field-value");
+
+                // Modify the display value for the "status" column
+                value.textContent = (header.toLowerCase() === "status" && matchingRow[index] === "DEAD CELL")
+                    ? "OUT"
+                    : matchingRow[index] || "N/A";
+
+                fieldContainer.appendChild(label);
+                fieldContainer.appendChild(value);
+                tableContainer.appendChild(fieldContainer);
+            });
+        } else {
+            tableContainer.innerHTML = `<p>No data found for Number: ${number} in sheet "${line}".</p>`;
+        }
+
+        loader.style.display = "none"; // Ensure loader is hidden when displaying the data
     }
 
-    const headers = data[0]; // First row as headers
-    const rows = data.slice(1); // All rows excluding the headers
+    // Function to display the entire sheet in an HTML format (not used when number is specified)
+    function displayTable(data) {
+        if (!data || data.length === 0) {
+            tableContainer.innerHTML = "<p>No data found in the Excel file.</p>";
+            loader.style.display = "none"; // Hide the loader
+            return;
+        }
 
-    // Locate the row with the specified number in the first column
-    const matchingRow = rows.find(row => parseInt(row[0], 10) === number);
-
-    if (matchingRow) {
         const heading = document.createElement("h2");
-        heading.textContent = `LINE ${line.includes("1") ? "1" : "2"}`; // Display only LINE x (1 or 2)
+        heading.textContent = `Data from ${line}`;
         tableContainer.appendChild(heading);
 
-        // Display each field as a label-value pair
-        headers.forEach((header, index) => {
-            const fieldContainer = document.createElement("div");
-            fieldContainer.classList.add("field-container");
+        // Display each field as a label-value pair for each row
+        data.slice(1).forEach(row => {
+            row.forEach((cell, index) => {
+                const fieldContainer = document.createElement("div");
+                fieldContainer.classList.add("field-container");
 
-            const label = document.createElement("span");
-            label.classList.add("field-label");
-            label.textContent = `${header}:`;
+                const label = document.createElement("span");
+                label.classList.add("field-label");
+                label.textContent = `${data[0][index]}:`;
 
-            const value = document.createElement("span");
-            value.classList.add("field-value");
+                const value = document.createElement("span");
+                value.classList.add("field-value");
 
-            // Modify the display value for the "status" column
-            value.textContent = (header.toLowerCase() === "status" && matchingRow[index] === "DEAD CELL")
-                ? "OUT"
-                : matchingRow[index] || "N/A";
+                // Modify the display value for the "status" column
+                value.textContent = (data[0][index].toLowerCase() === "status" && cell === "DEAD CELL")
+                    ? "OUT"
+                    : cell || "N/A";
 
-            fieldContainer.appendChild(label);
-            fieldContainer.appendChild(value);
-            tableContainer.appendChild(fieldContainer);
+                fieldContainer.appendChild(label);
+                fieldContainer.appendChild(value);
+                tableContainer.appendChild(fieldContainer);
+            });
         });
-    } else {
-        tableContainer.innerHTML = `<p>No data found for Number: ${number} in sheet "${line}".</p>`;
+
+        loader.style.display = "none"; // Ensure loader is hidden after data is loaded
     }
-
-    loader.style.display = "none"; // Ensure loader is hidden when displaying the data
-}
-
-  function displayTable(data) {
-    if (!data || data.length === 0) {
-        tableContainer.innerHTML = "<p>No data found in the Excel file.</p>";
-        loader.style.display = "none"; // Hide the loader
-        return;
-    }
-
-    const heading = document.createElement("h2");
-    heading.textContent = `Data from ${line}`;
-    tableContainer.appendChild(heading);
-
-    // Display each field as a label-value pair for each row
-    data.slice(1).forEach(row => {
-        row.forEach((cell, index) => {
-            const fieldContainer = document.createElement("div");
-            fieldContainer.classList.add("field-container");
-
-            const label = document.createElement("span");
-            label.classList.add("field-label");
-            label.textContent = `${data[0][index]}:`;
-
-            const value = document.createElement("span");
-            value.classList.add("field-value");
-
-            // Modify the display value for the "status" column
-            value.textContent = (data[0][index].toLowerCase() === "status" && cell === "DEAD CELL")
-                ? "OUT"
-                : cell || "N/A";
-
-            fieldContainer.appendChild(label);
-            fieldContainer.appendChild(value);
-            tableContainer.appendChild(fieldContainer);
-        });
-    });
-
-    loader.style.display = "none"; // Ensure loader is hidden after data is loaded
-}
+});
