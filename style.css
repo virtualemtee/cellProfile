@@ -3,13 +3,13 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #110c58; /* Deep blue-black background */
+    background-color: #121212; /* Deep blue-black background */
     color: #fff; /* Light text color */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: auto; /* Prevents scrolling on small screens */
+    overflow: hidden; /* Prevents scrolling on small screens */
 }
 
 /* Container for the Page */
@@ -37,7 +37,7 @@ h1 {
 /* Centered and Modern LINE x, CELL x Heading */
 h2 {
     font-size: 1.8rem;
-    color: #010538;
+    color: #e1e1e1;
     text-align: center; /* Center the text */
     font-weight: 700; /* Bold text for emphasis */
     margin-bottom: 20px;
