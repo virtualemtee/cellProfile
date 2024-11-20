@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function displayRowByNumber(data, number) {
         if (!data || data.length === 0) {
             tableContainer.innerHTML = "<p>No data found in the Excel file.</p>";
+            loader.style.display = "none"; // Ensure loader is hidden
             return;
         }
 
@@ -82,12 +83,15 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             tableContainer.innerHTML = `<p>No data found for Number: ${number} in sheet "${line}".</p>`;
         }
+
+        loader.style.display = "none"; // Ensure loader is hidden when displaying the data
     }
 
     // Function to display the entire sheet in an HTML format (not used when number is specified)
     function displayTable(data) {
         if (!data || data.length === 0) {
             tableContainer.innerHTML = "<p>No data found in the Excel file.</p>";
+            loader.style.display = "none"; // Hide the loader
             return;
         }
 
@@ -114,5 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 tableContainer.appendChild(fieldContainer);
             });
         });
+
+        loader.style.display = "none"; // Ensure loader is hidden after data is loaded
     }
 });
