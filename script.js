@@ -75,10 +75,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 const value = document.createElement("span");
                 value.classList.add("field-value");
 
-                // Modify the display value for the "status" column
-                value.textContent = (header.toLowerCase() === "status" && matchingRow[index] === "DEAD CELL")
-                    ? "OUT"
-                    : matchingRow[index] || "N/A";
+                // If "Status" is DEAD CELL, change "Current Status" dynamically
+                if (header.toLowerCase() === "current status") {
+                    const statusIndex = headers.findIndex(h => h.toLowerCase() === "status");
+                    if (matchingRow[statusIndex] === "DEAD CELL") {
+                        value.textContent = "OUT";
+                    } else {
+                        value.textContent = matchingRow[index] || "N/A";
+                    }
+                } else {
+                    value.textContent = matchingRow[index] || "N/A";
+                }
 
                 fieldContainer.appendChild(label);
                 fieldContainer.appendChild(value);
@@ -116,10 +123,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 const value = document.createElement("span");
                 value.classList.add("field-value");
 
-                // Modify the display value for the "status" column
-                value.textContent = (data[0][index].toLowerCase() === "status" && cell === "DEAD CELL")
-                    ? "OUT"
-                    : cell || "N/A";
+                // If "Status" is DEAD CELL, change "Current Status" dynamically
+                if (data[0][index].toLowerCase() === "current status") {
+                    const statusIndex = data[0].findIndex(h => h.toLowerCase() === "status");
+                    if (row[statusIndex] === "DEAD CELL") {
+                        value.textContent = "OUT";
+                    } else {
+                        value.textContent = cell || "N/A";
+                    }
+                } else {
+                    value.textContent = cell || "N/A";
+                }
 
                 fieldContainer.appendChild(label);
                 fieldContainer.appendChild(value);
