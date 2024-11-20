@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const tableContainer = document.getElementById("tableContainer");
+    const loader = document.getElementById("loader"); // Get the loader element
 
     // URL of the Google Sheet published as XLSX
     const excelURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ0f0gLQZ2jTCv8BBBnRXAEAXo1C3vEYDL9qDTh0hdrjgyzScUsidr0Um-NuBXJXda8FM_FRcCbfZaa/pub?output=xlsx";
@@ -8,6 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const line = urlParams.get("line") || "Summary_Line1"; // Default to Summary_Line1
     const number = parseInt(urlParams.get("number"), 10); // Parse the number parameter
+
+    // Show the loader before fetching data
+    loader.style.display = "block"; 
 
     // Fetch the Excel file and display its data
     fetch(excelURL)
@@ -18,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Check if the sheet exists
             if (!workbook.SheetNames.includes(line)) {
                 tableContainer.innerHTML = `<p>Sheet "${line}" not found in the Excel file.</p>`;
+                loader.style.display = "none"; // Hide the loader
                 return;
             }
 
@@ -30,10 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 displayTable(jsonData);
             }
+
+            loader.style.display = "none"; // Hide the loader after data is loaded
         })
         .catch(error => {
             console.error("Error fetching Excel file:", error);
             tableContainer.innerHTML = "<p>Failed to load data. Please try again later.</p>";
+            loader.style.display = "none"; // Hide the loader in case of an error
         });
 
     // Function to display a specific row by number
@@ -51,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (matchingRow) {
             const heading = document.createElement("h2");
-            heading.textContent = `LINE ${line.includes("1") ? "1" : "2"}`;
+            heading.textContent = `LINE ${line.includes("1") ? "1" : "2"}`; // Display only LINE x (1 or 2)
             tableContainer.appendChild(heading);
 
             // Display each field as a label-value pair
