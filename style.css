@@ -7,9 +7,9 @@ body {
     color: #fff; /* Light text color */
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden; /* Prevents scrolling on small screens */
+    align-items: flex-start; /* Allow scrolling while keeping content centered */
+    min-height: 100vh;
+    overflow-y: auto; /* Allows vertical scrolling */
 }
 
 /* Container for the Page */
@@ -45,13 +45,22 @@ h2 {
     text-transform: uppercase;
 }
 
-/* Field Containers */
+/* Container for LINE x, CELL x */
+.line-cell-container {
+    background: #f0f0f0; /* Light grey or white background for this container */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Slight shadow for separation */
+    margin-bottom: 30px; /* Space below the container */
+}
+
+/* Field Containers (Data cards) */
 .field-container {
     display: flex;
     justify-content: space-between;
     margin: 12px 0;
     padding: 14px;
-    background: #d1d1d1; /* Slightly darker background for individual field containers */
+    background: #ffffff; /* White background for individual field containers */
     border-radius: 10px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15); /* Light shadow to separate cards */
 }
@@ -59,7 +68,7 @@ h2 {
 /* Field Labels */
 .field-label {
     font-weight: bold;
-    color: #fff; /* Light text for labels */
+    color: #000; /* Black text for labels in the data card */
     flex: 1;
     font-size: 1.2rem;
     letter-spacing: 0.5px;
@@ -68,7 +77,7 @@ h2 {
 /* Field Values */
 .field-value {
     font-weight: normal;
-    color: #ddd; /* Lighter text for values */
+    color: #000; /* Black text for values in the data card */
     flex: 2;
     text-align: right;
     font-size: 1.1rem;
