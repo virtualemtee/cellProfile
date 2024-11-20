@@ -1,0 +1,100 @@
+/* General Body Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #110c58; /* Deep blue-black background */
+    color: #fff; /* Light text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden; /* Prevents scrolling on small screens */
+}
+
+/* Container for the Page */
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px;
+    padding: 30px;
+    background: #1e1e1e; /* Darker card background */
+    border-radius: 15px; /* Slightly larger rounded corners */
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4); /* Stronger shadow for a floating effect */
+    overflow: hidden; /* Ensures rounded corners are preserved */
+}
+
+/* Heading */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-align: center;
+    color: #e1e1e1;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+/* Centered and Modern LINE x, CELL x Heading */
+h2 {
+    font-size: 1.8rem;
+    color: #01021b;
+    text-align: center; /* Center the text */
+    font-weight: 700; /* Bold text for emphasis */
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Field Containers */
+.field-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0;
+    padding: 14px;
+    background: #d1d1d1; /* Slightly darker background for individual field containers */
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15); /* Light shadow to separate cards */
+}
+
+/* Field Labels */
+.field-label {
+    font-weight: bold;
+    color: #fff; /* Light text for labels */
+    flex: 1;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+}
+
+/* Field Values */
+.field-value {
+    font-weight: normal;
+    color: #ddd; /* Lighter text for values */
+    flex: 2;
+    text-align: right;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .field-container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .field-label,
+    .field-value {
+        width: 100%;
+        text-align: left;
+    }
+
+    h2 {
+        font-size: 1.5rem; /* Slightly smaller font size for mobile */
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+}
