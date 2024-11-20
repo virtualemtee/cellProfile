@@ -9,7 +9,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: hidden; /* Prevents scrolling on small screens */
+    overflow: scroll; /* Prevents scrolling on small screens */
 }
 
 /* Container for the Page */
