@@ -98,3 +98,20 @@ h2 {
         margin-bottom: 20px;
     }
 }
+
+/* Loader Styles */
+.loader {
+    border: 6px solid #f3f3f3; /* Light grey background for the loader */
+    border-top: 6px solid #3498db; /* Blue color for the rotating top */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite; /* Infinite rotation animation */
+    margin: 20px auto; /* Center the loader */
+}
+
+/* Animation for the spinning effect */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
