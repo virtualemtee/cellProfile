@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const loader = document.getElementById("loader"); // Get the loader element
 
     // URL of the Google Sheet published as XLSX
-    const excelURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ0f0gLQZ2jTCv8BBBnRXAEAXo1C3vEYDL9qDTh0hdrjgyzScUsidr0Um-NuBXJXda8FM_FRcCbfZaa/pub?output=xlsx";
+    const excelURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSb0MIs7EWy9VE6mf_Jzie_2Qw-cYjueRMYVH24qIpxBLBZFFiIv8PWuKt1F5Rl9-tskLky0xv1VtQ3/pub?output=xlsx";
 
     // Extract parameters from the URL
     const urlParams = new URLSearchParams(window.location.search);
